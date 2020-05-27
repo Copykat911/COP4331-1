@@ -10,7 +10,7 @@ mysql = MySQL() #Create my MySQL Object named mysql
 #MySQL configurations (Todo move to config.file)
 
 app.config['MYSQL_DATABASE_USER'] = 'gn570lv2dz55'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'VQ35HR@tt'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
 app.config['MYSQL_DATABASE_DB'] = 'what'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
