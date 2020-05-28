@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Python Flask Bucket List App</title>
+ 
+     <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link href="../static/signup.css" rel="stylesheet">
+    <script src="../static/js/jquery-3.5.1.js"></script>
+   <!-- <script src="../static/js/signUp.js"></script>!-->
+
+  </head>
+ 
+  <body>
+ 
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              <a class="nav-link active" href="/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/signIn.html">Sign In</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutUs.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contactUs.html">Contact Us</a>
+            </li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Contact List App</h3>
+      </div>
+
+ 
+      <div class="jumbotron">
+        <h1>Username Register</h1>
+        <form class="form-signin" action="/signUp" method="POST">
+
+        <label for="inputFirstName" class="sr-only">Name</label>
+        <input type="name" name="inputFirstName" id="inputFirstName" class="form-control" placeholder="First Name" required autofocus>
+        <label for="inputLastName" class="sr-only">Name</label>
+        <input type="name" name="inputLastName" id="inputLastName" class="form-control" placeholder="Last Name" required autofocus>
+        <label for="inputUserName" class="sr-only">Name</label>
+        <input type="name" name="inputUserName" id="inputUserName" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+         
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
+      </form>
+      </div>
+ 
+
+ 
+      <footer class="footer">
+        <p>&copy; B2Engineering 2020</p>
+      </footer>
+ 
+    </div>
+  </body>
+</html>
