@@ -1,44 +1,20 @@
-from flask import Flask, render_template, request, json, redirect
+from flask import Flask, render_template, request, json, redirect, session
 from flaskext.mysql import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
-from flask import session
+
 app.secret_key = 'why would I tell you my secret key?'
+mysql = MySQL()                                                  #       #       #       #       #       #       #       #
+app.config['MYSQL_DATABASE_USER'] = 'gn570lv2dz55'               #   Create my MySQL Object named mysql                  #
+app.config['MYSQL_DATABASE_PASSWORD'] = 'VQ35HR@tt'              #                                                       #
+app.config['MYSQL_DATABASE_DB'] = 'what'                         #   MySQL configurations (Todo move to config.file)     #
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'                  #                                                       #
+mysql.init_app(app)                                              #           Start MySQL Application inside Flask        #
+                                                                 #       #       #       #       #       #       #       #
 
-mysql = MySQL() #Create my MySQL Object named mysql
+#       #       #       #       Function endpoints Frontpage      #       #       #       #      #       #       #       #
 
-#MySQL configurations (Todo move to config.file)
-
-app.config['MYSQL_DATABASE_USER'] = 'gn570lv2dz55'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-app.config['MYSQL_DATABASE_DB'] = 'what'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-
-#Server start my sql -> login -> make cursor object 
-
-mysql.init_app(app) #Start MySQL Application inside Flask
-
-# Function endpoints
-#@app.route('/')
-#@app.route('/index')
-#def index():
-#    return render_template('/index.html')
-
-@app.route('/logout')
-def logout():
-    session.pop('user',None)
-    return redirect('/')
-
-#@app.route('/signIn')
-#def signIn():
-#    return render_template('/signin.html')
-
-#@app.route('/showSignUp')#          <------ same as main, this will turn into showSignUp.js
-#def showSignUp():
-#    return render_template('/signUp.html')
-
-
-#Register User function
+#When user hits signup DO::
 @app.route('/signUp', methods=['POST'])#      
 def signUp():
 
@@ -81,17 +57,17 @@ def signUp():
             return 'error Username exist boiis'
     else:
         print("error 446")
-        json.dumps({'<span>Enter the required fields</span>'})
+        json.dumps({'<span>Enter the required fields</span>': 'hi'})
         return render_template('Enter the required fields')
 
-
+#When user attempts to log in DO:
 @app.route('/validateLogin',methods=['POST'])
 def validateLogin():
     try:
         _username = request.form['Username']
         _password = request.form['inputPassword']
 
-        # connect to mysql
+        # connect cursor to mysql
 
         con = mysql.connect()
         cursor = con.cursor()
@@ -110,36 +86,78 @@ def validateLogin():
  
  
     except Exception as e:
-        print('error 555')
         return render_template('error.html',error = str(e))
+    
     finally:
         cursor.close()
         con.close()
-@app.route('/userHome.html')
+
+#Successful login redirect
 @app.route('/userHome')
 def userHome():
     if session.get('user'):
-        return render_template('userHome.html')
+        return render_template('/userHome.html')
     else:
         return render_template('error.html',error = 'Unauthorized Access')
 
-#       #       #       #       #       #       #       #       #       #
-#@app.route('/proof')
-#def proof():
-#    dbConnection = mysql.connect() #Connect (object) to db with Admin settings
-#    dbCursor = dbConnection.cursor() #Create a cursor object
-#    query = """SELECT * FROM Users"""
-#    dbCursor.execute(query)
-#    s = "<table style='border:1px solid red'>"  
-#    for row in dbCursor:
-#        s = s + "<tr>"    
-#    for x in row:    
-#        s = s + "<td>" + str(x) + "</td>"    
-#        s = s + "</tr>" 
-#    
-#    return "<html><body>" + s + "</body></html>"
-#    return "<html><body>" +dbCursor.execute(query)+ "</body></html>"
-#       #       #       #       #       #       #       #       #       #
+#When user hits logout DO:
+@app.route('/logout')
+def logout():
+    session.pop('user',None)
+    return redirect('/')
 
+#       #       #       #       Function endpoints Contacts      #       #       #       #      #       #       #       #
+@app.route('/CreateContact', methods=['POST'])
+def CreateContact():
+
+    #Grab data from html page
+
+        contact_firstName = request.form['inputFirstName']
+        contact_lastName = request.form['inputLastName']
+        contact_email = request.form['inputEmail']
+        contact_phone = request.form['inputPhone']
+        contact_userID = session.get('user')
+        if contact_firstName and contact_lastName:
+            dbConnection = mysql.connect() #Connect (object) to db with Admin settings
+            dbCursor = dbConnection.cursor() #Create a cursor object
+            dbCursor.execute(
+                "INSERT INTO `tbl_contacts` (`contact_ID`, `contact_firstName`, `contact_lastName`, `contact_email`, `contact_phone`, `contact_dateCreated`, `contact_userID`)" 
+                "VALUES (NULL, \'"+contact_firstName+"\', \'"+contact_lastName+"\', \'"+contact_email+"\', \'"+contact_phone+"\', CURRENT_TIMESTAMP, \'2');"
+                )
+            dbConnection.commit()
+        if session.get('user'):
+            dbCursor.close()
+            dbConnection.close()
+            return render_template('/userHome.html')
+
+        else:
+            dbCursor.close()
+            dbConnection.close()
+            return render_template('error.html',error = 'Unauthorized Access')
+        dbCursor.close()
+        dbConnection.close()
+        return 'oof'
+
+
+
+
+@app.route('/userHomeeditContact')
+def editContact(methods=['POST']):
+    return 'oof'
+
+    #UPDATE `tbl_contacts` SET 
+    # `contact_firstName` = 'contact_firstName5', 
+    # `contact_lastName` = 'contact_lastName5', 
+    # `contact_email` = 'contact_email5', 
+    # `contact_phone` = 'contact_phone5' 
+    #WHERE `tbl_contacts`.`contact_ID` = 2;
+
+@app.route('/userHome#readContact')
+def readContact():
+    return 'oof'
+
+@app.route('/userHome#deleteContact')
+def deleteContact():
+    return 'oof'
 if __name__ == "__main__":
     app.run(debug=True)
