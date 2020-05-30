@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="../static/js/form.js"></script>
+  <link rel="stylesheet" href="../static/css/userChip.css" />
+<link rel="stylesheet" href="../static/css/contactModal.css" />
+<link rel="stylesheet" href="../static/css/contactPopUpForm.css" />
+<link rel="stylesheet" href="../static/css/paykeet.css" />
+<link rel="stylesheet" href="../static/css/form.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<style>
+
+
+body {
+  padding-top: 10px;
+  padding-bottom: 30px;
+background-color: #343a40;
+  margin:0}
+
+.icon-bar {
+  height: 100%;
+  width: 114px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 0px;
+}
+
+.main {
+  margin-left: 114px; /* Same as the width of the sidenav */
+  font-size: 18px; /* Increased text to enable scrolling */
+  padding: 0px;
+}
+.icon-bar a {
+  display: block;
+  text-align: center;
+  padding: 18px;
+  transition: all 0.7s ease;
+  color: white;
+  font-size: 36px;
+}
+
+.icon-bar a:hover {
+  background-color: #555;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+</style>
+<body>
+
+<!-- <div class="icon-bar"> -->
+  <!-- <div id="myBtn" onclick ="function()"> -->
+  <!-- <a class="active" ><i class="fa fa-home fa-fw"></i></a>  -->
+  <!-- </div> -->
+  <!-- <div onclick ="openForm()"> -->
+  <!-- <i class="fa fa-search fa-3x fa-fw"></i> -->
+   <!-- </div> -->
+  <!-- <i class="fa fa-plus-circle fa-3x fa-fw"></i> -->
+<!-- </div > -->
+
+<!-- <div style="padding-right: 10px;padding-bottom: 10px; " align="right" class="button"> -->
+  <!-- <button onclick="window.location.href='/logout'" type="button" class="btn btn-success">Logout</button> -->
+<!-- </div> -->
+
+<div class="icon-bar">
+  <div class="active" id="myBtn">
+   <i class="fa fa-home fa-4x fa-fw"></i>
+  </div>
+  
+<!-- ####### Search Bar ####### -->    
+  <div id="mySearchBtn" onclick ="openForm()">
+    <i class="fa fa-search fa-4x fa-fw"></i> 
+  </div>
+  <div id="myAddBtn" onclick ="openAddForm()">
+    <i class="fa fa-plus-circle fa-4x fa-fw"></i> 
+  </div>
+</div >
+
+
+
+<!-- The Modal -->
+<!--
+<div id="myModal" class="modal">
+
+  
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Modal Header</h2>
+    </div>
+    <div class="modal-body">
+      <p>Some text in the Modal Body</p>
+      <p>Some other text...</p>
+    </div>
+    <div class="modal-footer">
+      <h3>Modal Footer</h3>
+    </div>
+  </div>
+
+</div>
+<div class="main">        
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Phone</th>
+</tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>john@example.com</td>
+    	 <td>(000)000-0000</td>
+     </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@example.com</td>
+    	  <td>(000)000-0000</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@example.com</td>
+        <td>(000)000-0000</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+!-->
+
+<div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Search Contacts</h1>
+
+    <input type="text" placeholder="Search" name="text" required>
+    <button type="submit" class="btn">Search</button>
+	<div class="dropdown">
+		<button type="button" class="btn dropdown" placeholder="Categories" data-toggle="dropdown">
+		Search By:
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="#">Name</a>
+			<a class="dropdown-item" href="#">Phone Number</a>
+			<a class="dropdown-item" href="#">Date Created</a>
+		</div>
+	</div>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+<div class="form-popup" id="myAddForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Add Contact</h1>
+	
+    <input type="text" placeholder="First Name" name="inputFirstName" required>
+	<input type="text" placeholder="Last Name" name="inputLastName" required>
+	<input type="text" placeholder="Email" name="inputEmail" required>
+	<input type="text" placeholder="Phone Number" name="inputPhone" required>
+    <button type="submit" class="btn" onclick="createContact()">Add Contact</button>
+    <button type="button" class="btn cancel" onclick="closeAddForm()">Close</button>
+  </form>
+</div>		
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+  
+</body>
+</html> 

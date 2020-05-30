@@ -1,0 +1,23 @@
+/* The CHIP!!!! */
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 61px;
+    border-color: #ff0000;
+    background-color: #a96b6b;
+    max-width: 750px;
+    margin-left:45px
+    
+  }
+  
+  .chip img {
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+  }
+  
