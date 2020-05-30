@@ -15,6 +15,11 @@ mysql.init_app(app)                                              #           Sta
 #       #       #       #       Function endpoints Frontpage      #       #       #       #      #       #       #       #
 
 #When user hits signup DO::
+
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
 @app.route('/signUp', methods=['POST'])#      
 def signUp():
 
@@ -117,18 +122,27 @@ def CreateContact():
         contact_email = request.form['inputEmail']
         contact_phone = request.form['inputPhone']
         contact_userID = session.get('user')
+        print(contact_userID)
         if contact_firstName and contact_lastName:
             dbConnection = mysql.connect() #Connect (object) to db with Admin settings
             dbCursor = dbConnection.cursor() #Create a cursor object
+            
+            print('''(
+            "INSERT INTO `tbl_contacts` (`ID`, `contact_firstName`, `contact_lastName`, `contact_email`, `contact_phone`, `contact_dateCreated) "
+            "VALUES (NULL, %s, %s, %s, %s, NULL, %s)",(contact_firstName, contact_lastName, contact_email, contact_phone)
+            )"''')
+        
             dbCursor.execute(
-                "INSERT INTO `tbl_contacts` (`contact_ID`, `contact_firstName`, `contact_lastName`, `contact_email`, `contact_phone`, `contact_dateCreated`, `contact_userID`)" 
-                "VALUES (NULL, \'"+contact_firstName+"\', \'"+contact_lastName+"\', \'"+contact_email+"\', \'"+contact_phone+"\', CURRENT_TIMESTAMP, \'2');"
+                "INSERT INTO `tbl_contacts` (`contact_firstName`, `contact_lastName`, `contact_email`, `contact_phone`,`contact_userID`) "
+                "VALUES (%s, %s, %s, %s, %s)",(contact_firstName, contact_lastName, contact_email, contact_phone, contact_userID)
                 )
+
+       
             dbConnection.commit()
         if session.get('user'):
             dbCursor.close()
             dbConnection.close()
-            return render_template('/userHome.html')
+            return redirect('/userHome')
 
         else:
             dbCursor.close()
@@ -138,19 +152,26 @@ def CreateContact():
         dbConnection.close()
         return 'oof'
 
-
-
-
-@app.route('/userHomeeditContact')
+@app.route('/editContact')
 def editContact(methods=['POST']):
-    return 'oof'
-
-    #UPDATE `tbl_contacts` SET 
-    # `contact_firstName` = 'contact_firstName5', 
-    # `contact_lastName` = 'contact_lastName5', 
-    # `contact_email` = 'contact_email5', 
-    # `contact_phone` = 'contact_phone5' 
-    #WHERE `tbl_contacts`.`contact_ID` = 2;
+   
+    contact_firstName = request.form['inputFirstName']
+    contact_lastName = request.form['inputLastName']
+    contact_email = request.form['inputEmail']
+    contact_phone = request.form['inputPhone']
+    contact_userID = session.get('user')
+    
+    dbConnection = mysql.connect() #Connect (object) to db with Admin settings
+    dbCursor = dbConnection.cursor() #Create a cursor object
+    dbCursor.execute(
+    '''UPDATE `tbl_contacts` SET 
+    `contact_firstName` = 'contact_firstName5', 
+    `contact_lastName` = 'contact_lastName5', 
+    `contact_email` = 'contact_email5', 
+    `contact_phone` = 'contact_phone5' 
+    WHERE `tbl_contacts`.`contact_ID` = 2;'''
+    )
+    return render_template("")
 
 @app.route('/userHome#readContact')
 def readContact():
@@ -159,5 +180,6 @@ def readContact():
 @app.route('/userHome#deleteContact')
 def deleteContact():
     return 'oof'
+
 if __name__ == "__main__":
     app.run(debug=True)
