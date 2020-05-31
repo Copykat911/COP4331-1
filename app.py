@@ -83,11 +83,14 @@ def validateLogin():
         if len(data) > 0:
             if check_password_hash(str(data[0][5]),_password):
                 session['user'] = data[0][0]
+                session['username'] = data[0][3]
+                session['password'] = data[0][5]
                 return redirect('/userHome')
+                #return render_template('/userHome.html', title = session.get('username'))
             else:
                 return render_template('error.html',error = 'Wrong Email address or Password.')
         else:
-            return render_template('error.html',error = 'Wrong Email address or Password.')
+            return render_template('error.html',error = 'Unauthorized Access')
  
  
     except Exception as e:
@@ -101,7 +104,9 @@ def validateLogin():
 @app.route('/userHome')
 def userHome():
     if session.get('user'):
-        return render_template('/userHome.html')
+        data = readContact()
+
+        return render_template('/userHome.html', title = session.get('username'), data = data)
     else:
         return render_template('error.html',error = 'Unauthorized Access')
 
@@ -109,7 +114,7 @@ def userHome():
 @app.route('/logout')
 def logout():
     session.pop('user',None)
-    return redirect('/')
+    return redirect('/index')
 
 #       #       #       #       Function endpoints Contacts      #       #       #       #      #       #       #       #
 @app.route('/CreateContact', methods=['POST'])
@@ -173,9 +178,28 @@ def editContact(methods=['POST']):
     )
     return render_template("")
 
-@app.route('/userHome#readContact')
+@app.route('/readContact')
 def readContact():
-    return 'oof'
+    contact_userID = session.get('user')
+    dbConnection = mysql.connect() #Connect (object) to db with Admin settings
+    dbCursor = dbConnection.cursor()
+    dbCursor.execute('SELECT * FROM `tbl_contacts` WHERE `contact_userID` = %s',(contact_userID))
+    
+    returndata=dbCursor.fetchall()
+    dataa = []
+    for returndata in returndata:
+        data = {
+        'Id': returndata[0],
+        'Firstname': returndata[1],
+        'Lastname': returndata[2],
+        'Email': returndata[3],
+        'Phone': returndata[4]
+        }
+        dataa.append(data)
+    dbCursor.close()
+    dbConnection.close()
+    
+    return dataa
 
 @app.route('/userHome#deleteContact')
 def deleteContact():
