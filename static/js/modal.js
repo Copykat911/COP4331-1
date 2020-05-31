@@ -21,18 +21,19 @@ function searchModal() {
     }
 }
 function searchContact() {
-    var input, filter, tbody, tr, td, i, txtValue;
+    var input, filter, listfname, td, i, txtValue;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
-    tbody = document.getElementById("myBody");
-    tr = tbody.getElementsByTagName("tr");
-    for(i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        txtValue = td.textContent || td.innerText;
+    chip = document.getElementsByName("chip");
+    listfname = chip.getElementsByClassName("listfname")
+    for(i = 0; i < listfname.length; i++) {
+
+        txtValue = listfname[i].textContent
         if(txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
+            chip[i].style.display = "";
         } else {
-            tr[i].style.display = "none";
+            chip[i].style.display = "none";
         }
     }
 }
+
