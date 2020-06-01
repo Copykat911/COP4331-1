@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../static/css/sideNavContact.css" />
+<link rel="stylesheet" href="../static/css/userChip.css" />
+<link rel="stylesheet" href="../static/css/contactModal.css" />
+<link rel="stylesheet" href="../static/css/contactPopUpForm.css" />
+<link rel="stylesheet" href="../static/css/paykeet.css" />
+<link rel="stylesheet" href="../static/css/navbar.css" />
+<link rel="stylesheet" href="../static/css/userHome.css" />
+<script src="../static/js/form.js"></script>
+<script src="../static/js/deleteUser.js"></script>
+
+    <script src="../static/js/jquery-3.5.1.js"></script>
+<script src="../static/js/modal.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% if title %}
+	<title>KeepKeet -- {{title}}</title>
+{% endif %}
+	<title>KeepKeet.com</title>
+
+</head>
+<body>
+	<!-- ####### Search Bar ####### -->
+	<!-- ####### Search Bar ####### -->
+	<div class="icon-bar">
+		<div class="active" id="myBtn"> <img src="../static/image/Logo.png"> </div>
+		<div class="subactive" id="mySearchBtn" onclick="openAddForm()"> <i class="fa fa-user-plus fa-3x"></i>Create New </div>
+		<div class="subactive" id="mySearchBtn" onclick="openForm()"> <i class="fa fa-search fa-3x"></i> Search Contacts </div>
+		<div class="subactive" id="mySearchBtn" onclick="editUser()"> <i class="fa fa-edit fa-3x"></i>Update Contact</div>
+		<div class="subactive" id="mySearchBtn" onclick="deleteUser()"> <i class="fa fa-user-times fa-3x"></i>Delete Contact</div>
+		<div class="subactive" id="deleteButton" onclick="closedeleteUser()"> <i class="fa fa-sign-out fa-3x"></i>Close </div>
+		<div class="subactive" id="deleteButton" onclick="window.location.href='/logout'"> <i class="fa fa-sign-out fa-3x"></i>Logout </div>
+
+		<!-- <div class="subactive" id="mySearchBtn" onclick="searchModal()"> <i class="fa fa-wheelchair-alt fa-3x"></i> </div> -->
+	</div>
+
+	<div class="navbar">
+		<div class="i">
+			<span><img class="imgc" src="../static/image/Logo2.png"></span>
+		</div>
+	</div>
+	<!-- The Modal -->
+<!--
+	<div class="row">
+
+		<div class="column" name="chip">
+			{% for data in data %}
+			<div name = "rows" class ="row">
+				<div class="chip"> <img src="../static/image/aang.jpg" alt="Person" width="96" height="96">
+					<table>
+					<tbody name ="myBody">
+						<tr>
+					<td class ="listfname">{{data.Firstname}}</td>
+				 	<td class ="listfname">{{data.Lastname}}</td>
+					<td class ="listfname">{{data.Phone}}</td>
+					</tr>
+					</tbody>
+			</table>
+				</div>
+				<button type="button" id="butj" class = "btn dangerb"><i class="fa fa-trash"></i>Trash</button>
+			<button type="button" id="butk" class="btn dangerc"> <i class="fa fa-edit"></i>Edit</button>
+
+			</div>
+			{% endfor %}
+		</div>
+-->
+<div class="row">
+
+                <div class="column" name="chip">
+                <table class ="theTable" id="theTable" border=2>
+                <tbody>
+                        {% for data in data %}
+                        <tr>
+                                <td>
+                                        <div name = "rows" class ="row">
+
+
+                                                <div class="chip"> <img src="../static/image/aang.jpg" alt="Person" width="96" height="96">
+                                                        <table>
+                                                        <tbody name ="myBody">
+                                                                <tr>
+                                                                        <td class ="listfname">{{data.Firstname}}</td>
+                                                                        <td class ="listfname">{{data.Lastname}}</td>
+                                                                        <td class ="listfname">{{data.Phone}}</td>
+                                                                </tr>
+                                                        </tbody>
+                                                        </table>
+                                                </div>
+
+
+                                <td><button type="button" id="butj" class = "btn dangerb"><i class="fa fa-trash"></i>Trash</button></td>
+                                <td><button type="button" id="butk" class="btn dangerc"> <i class="fa fa-edit"></i>Edit</button></td>
+                                        </div>
+                                </td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+                </table>
+                </div>
+                <script>
+                var index, table = document.getElementById("theTable");
+                for(var i = 0; i < table.rows.length; i++)
+                {
+                  var data = table.rows[i].cells[0].innerHTML;
+                  table.rows[i].cells[1].onclick = function()
+                  {
+
+                    index = this.parentElement.rowIndex;
+                    console.log("oh yea");
+                    console.log(index);
+                    alert(data);
+                  };
+                }
+                </script>
+
+
+		<div class="columndisplay">
+			<table class="table table-dark table-striped">
+				<thead>
+					<tr>
+						<th>Firstname</th>
+						<th>Lastname</th>
+						<th>Email</th>
+						<th>Phone</th>
+					</tr>
+				</thead>
+				<tbody id="myBody">
+					{% for data in data %}
+					<tr>
+						<td>{{data.Firstname}}</td>
+						<td>{{data.Lastname}}</td>
+						<td>{{data.Email}}</td>
+						<td>{{data.Phone}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="footer">
+		<p>Footer</p>
+	</div>
+
+	<!-- ############## Popup window for searching contact in ################ -->
+
+	<div class="form-popup" id="myForm">
+		<form action="/action_page.php" class="form-container">
+		  <h1>Search Contacts</h1>
+
+		  <input onkeyup="searchContact()"type="text" id="myInput" placeholder="Search" name="text" required>
+		  <button type="submit" class="btn">Search</button>
+		  <div class="dropdown">
+			  <button type="button" class="btn dropdown" placeholder="Categories" data-toggle="dropdown">
+			  Search By:
+			  </button>
+			  <div class="dropdown-menu">
+				  <a class="dropdown-item" href="#">Name</a>
+				  <a class="dropdown-item" href="#">Phone Number</a>
+				  <a class="dropdown-item" href="#">Date Created</a>
+			  </div>
+		  </div>
+		  <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+		</form>
+	  </div>
+	  	<!-- ############## Popup window for adding contact in ################ -->
+	  <div class="form-popup" id="myAddForm">
+		<form action="/CreateContact" class="form-container" method = "POST">
+		  <h1>Add Contact</h1>
+
+		  <input type="text" placeholder="First Name" name="inputFirstName" required>
+		  <input type="text" placeholder="Last Name" name="inputLastName" required>
+		  <input type="text" placeholder="Email" name="inputEmail" required>
+		  <input type="text" placeholder="Phone Number" name="inputPhone" required>
+		  <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Add Contact</button>
+		  <button type="button" class="btn cancel" onclick="closeAddForm()">Close</button>
+		</form>
+	  </div>
+
+	<!-- Search Modal
+	<div id="mySearchModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header"> <span class="close">&times;</span> </div>
+			<div class="modal-body">
+				<h1>Search For Contact</h1>
+				<label for="Search"><b>Search</b></label>
+				<input type="text" id="myInput" onkeyup="searchContact()" placeholder="Search for names...">
+				INSERT USER CONTACTS TABLE FROM DB HERE -->
+				<!-- <table class="table table-dark table-striped">
+					<thead>
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+						</tr>
+					</thead>
+					<tbody id="myBody">
+						<tr>
+							<td>John</td>
+							<td>Doe</td>
+							<td>john@example.com</td>
+							<td>(000)000-0000</td>
+						</tr>
+						<tr>
+							<td>Mary</td>
+							<td>Moe</td>
+							<td>mary@example.com</td>
+							<td>(000)000-0000</td>
+						</tr>
+						<tr>
+							<td>Sunday</td>
+							<td>Dooley</td>
+							<td>july@example.com</td>
+							<td>(000)000-0000</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div> -->
+</body>
+
+</html>
