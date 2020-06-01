@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>	
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="../static/css/userHome.css" />
 <script src="../static/js/form.js"></script>
 <script src="../static/js/deleteUser.js"></script>
+
     <script src="../static/js/jquery-3.5.1.js"></script>
 <script src="../static/js/modal.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,7 +38,7 @@
 		<div class="subactive" id="mySearchBtn" onclick="deleteUser()"> <i class="fa fa-user-times fa-3x"></i>Delete Contact</div>
 		<div class="subactive" id="deleteButton" onclick="closedeleteUser()"> <i class="fa fa-sign-out fa-3x"></i>Close </div>
 		<div class="subactive" id="deleteButton" onclick="window.location.href='/logout'"> <i class="fa fa-sign-out fa-3x"></i>Logout </div>
-		
+
 		<!-- <div class="subactive" id="mySearchBtn" onclick="searchModal()"> <i class="fa fa-wheelchair-alt fa-3x"></i> </div> -->
 	</div>
 
@@ -47,31 +48,80 @@
 		</div>
 	</div>
 	<!-- The Modal -->
-
+<!--
 	<div class="row">
-		
+
 		<div class="column" name="chip">
 			{% for data in data %}
 			<div name = "rows" class ="row">
-				<div class="chip"> <img src="../static/image/aang.jpg" alt="Person" width="96" height="96"> 
+				<div class="chip"> <img src="../static/image/aang.jpg" alt="Person" width="96" height="96">
 					<table>
 					<tbody name ="myBody">
-						<tr>					
-					<td class ="listfname">{{data.Firstname}}</td> 
-				 	<td class ="listfname">{{data.Lastname}}</td> 
+						<tr>
+					<td class ="listfname">{{data.Firstname}}</td>
+				 	<td class ="listfname">{{data.Lastname}}</td>
 					<td class ="listfname">{{data.Phone}}</td>
 					</tr>
 					</tbody>
-			</table>  
+			</table>
 				</div>
 				<button type="button" id="butj" class = "btn dangerb"><i class="fa fa-trash"></i>Trash</button>
 			<button type="button" id="butk" class="btn dangerc"> <i class="fa fa-edit"></i>Edit</button>
-				
+
 			</div>
 			{% endfor %}
 		</div>
-		
-		
+-->
+<div class="row">
+
+                <div class="column" name="chip">
+                <table class ="theTable" id="theTable" border=2>
+                <tbody>
+                        {% for data in data %}
+                        <tr>
+                                <td>
+                                        <div name = "rows" class ="row">
+
+
+                                                <div class="chip"> <img src="../static/image/aang.jpg" alt="Person" width="96" height="96">
+                                                        <table>
+                                                        <tbody name ="myBody">
+                                                                <tr>
+                                                                        <td class ="listfname">{{data.Firstname}}</td>
+                                                                        <td class ="listfname">{{data.Lastname}}</td>
+                                                                        <td class ="listfname">{{data.Phone}}</td>
+                                                                </tr>
+                                                        </tbody>
+                                                        </table>
+                                                </div>
+
+
+                                <td><button type="button" id="butj" class = "btn dangerb"><i class="fa fa-trash"></i>Trash</button></td>
+                                <td><button type="button" id="butk" class="btn dangerc"> <i class="fa fa-edit"></i>Edit</button></td>
+                                        </div>
+                                </td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+                </table>
+                </div>
+                <script>
+                var index, table = document.getElementById("theTable");
+                for(var i = 0; i < table.rows.length; i++)
+                {
+                  var data = table.rows[i].cells[0].innerHTML;
+                  table.rows[i].cells[1].onclick = function()
+                  {
+
+                    index = this.parentElement.rowIndex;
+                    console.log("oh yea");
+                    console.log(index);
+                    console.log(data);
+                  };
+                }
+                </script>
+
+
 		<div class="columndisplay">
 			<table class="table table-dark table-striped">
 				<thead>
@@ -95,17 +145,17 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<div class="footer">
 		<p>Footer</p>
 	</div>
-	
+
 	<!-- ############## Popup window for searching contact in ################ -->
 
 	<div class="form-popup" id="myForm">
 		<form action="/action_page.php" class="form-container">
 		  <h1>Search Contacts</h1>
-	  
+
 		  <input onkeyup="searchContact()"type="text" id="myInput" placeholder="Search" name="text" required>
 		  <button type="submit" class="btn">Search</button>
 		  <div class="dropdown">
@@ -125,7 +175,7 @@
 	  <div class="form-popup" id="myAddForm">
 		<form action="/CreateContact" class="form-container" method = "POST">
 		  <h1>Add Contact</h1>
-		  
+
 		  <input type="text" placeholder="First Name" name="inputFirstName" required>
 		  <input type="text" placeholder="Last Name" name="inputLastName" required>
 		  <input type="text" placeholder="Email" name="inputEmail" required>
@@ -133,7 +183,7 @@
 		  <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Add Contact</button>
 		  <button type="button" class="btn cancel" onclick="closeAddForm()">Close</button>
 		</form>
-	  </div>	
+	  </div>
 
 	<!-- Search Modal
 	<div id="mySearchModal" class="modal">
