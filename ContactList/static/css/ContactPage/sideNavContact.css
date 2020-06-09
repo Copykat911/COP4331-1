@@ -1,0 +1,51 @@
+.icon-bar {
+    height: 100%;
+    width: 94px;
+    position: fixed;
+    z-index: 12;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 0px;
+    text-align: center;
+  }
+  
+  .main {
+    margin-left: 114px; /* Same as the width of the sidenav */
+    font-size: 18px; /* Increased text to enable scrolling */
+    padding: 0px;
+  }
+  .mainNavButton {
+    color: #FFF;
+    margin-left: 114px; /* Same as the width of the sidenav */
+    font-size: 18px; /* Increased text to enable scrolling */
+    padding-top: 12px; 
+    padding-bottom: 12px;
+  }
+
+  .icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 35px;
+    transition: all 0.7s ease;
+    color: white;
+    font-size: 36px;
+  }
+  
+  .subactive:hover {
+    background-color: #555;
+  }
+   
+  .subactive {
+    color: #FFF;
+    background-color: #000;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    
+  } 
+  .active {
+    background-color: #FFF;
+    padding-top: 1%;
+    padding-bottom: 1%;
+  }

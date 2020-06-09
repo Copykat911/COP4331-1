@@ -1,0 +1,97 @@
+body {
+	background-color: black;
+	margin-left: 94px;
+	margin-top: 94px;
+}
+
+h1 { 
+	  font-family: Georgia, Times, "Times New Roman", serif;
+	 font-size: 23px; font-style: normal; font-variant: normal;
+	  font-weight: 700; line-height: 23px; 
+	  font-variant: small-caps;
+} 
+
+h3 { 
+		font-family: Georgia, Times, "Times New Roman", serif; font-size: 17px;
+		font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px; 
+		font-variant: small-caps;
+} 
+	
+p { 
+	font-family: Georgia, Times, "Times New Roman", serif; font-size: 14px;
+	font-style: normal; font-variant: normal; font-weight: 400;
+	font-variant: small-caps;
+	line-height: 23px; } 
+
+blockquote { font-family: Georgia, Times, "Times New Roman", serif; 
+	font-size: 17px; font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 23px;
+} 
+
+pre { 
+	font-family: Georgia, Times, "Times New Roman", serif;
+	font-size: 11px; font-style: normal; font-variant: normal;
+	font-weight: 400; line-height: 23px; 
+}
+
+.center-content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	flex-direction: column;
+  }
+
+.logo {
+	position: fixed;
+	top: 13px;
+	right: 1%;
+	float: right;
+}
+
+.footer {
+
+background-color: rgb(70, 70, 70);
+position: fixed;
+left: 50%;
+bottom: 0;
+padding-top: 20px;
+width: 50%;
+margin-bottom: 0px;
+color: white;
+text-align: center;
+}
+
+.navbar {
+    position: fixed;
+    /* padding: 0px 0px 61px 0px; */
+    top: 0px;
+    width: 100%;
+	position: fixed;
+	height: 85px;
+	background-color: black;
+	z-index: 2;
+}
+
+.trash {
+	display: none;
+}
+.edit {
+	display: none;
+}
+.Contact1 {
+	height: 100%;
+}
+.ContactDiv {
+	display: none;
+	height: 100%;
+}
+
+
+
+
+
+
+
